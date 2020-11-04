@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import { Route } from 'react-router-dom';
 
 import './App.css';
@@ -7,11 +8,21 @@ import { Header } from './components'
 import { Home, Cart } from "./pages";
 
 function App() {
+  const [pizzas, setPizzas] = React.useState([]);
+
+  React.useEffect(() => {
+    axios.get('http://localhost:3000/db.json')
+        .then(({ data }) => {
+          setPizzas(data.pizzas);
+        })
+  }, [])
+
+  console.log(pizzas);
 
   return <div className="wrapper">
     <Header />
     <div className="content">
-      <Route path="/" component={Home} exact/>
+      <Route path="/" render={() => <Home items={pizzas}/>} exact/>
       <Route path="/Cart" component={Cart} exact/>
     </div>
   </div>
