@@ -16,8 +16,7 @@ export const fetchPizzas = (sortBy, category) => (dispatch) => {
       `http://localhost:3001/pizzas?${category !== null ? `category=${category}` : ''}&_sort=${
         sortBy.type
       }&_order=${sortBy.order}`,
-    )
-    .then(({ data }) => {
+    ).then(({ data }) => {
       dispatch(setPizzas(data));
     });
 };
